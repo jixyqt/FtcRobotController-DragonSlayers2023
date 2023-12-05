@@ -23,6 +23,8 @@ public class RoBitsDriveCode extends LinearOpMode {
     Servo armServo = null;
     Servo planeServo = null;
 
+    Servo lancelot = null; //TODO:This is for the testing of a new intake system(delete later)
+
     // Variables
     int goalPosition = 0;
     int goalIncrement = 1;
@@ -42,6 +44,8 @@ public class RoBitsDriveCode extends LinearOpMode {
         claw = hardwareMap.get(CRServo.class, "claw");
         armServo = hardwareMap.get(Servo.class, "armServo");
         planeServo = hardwareMap.get(Servo.class, "planeServo");
+
+        lancelot = hardwareMap.get(Servo.class, "lancelot"); //TODO:This is for the testing of a new intake system(delete later)
 
         waitForStart();
 
@@ -91,6 +95,19 @@ public class RoBitsDriveCode extends LinearOpMode {
             if(gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0) {
                 claw.setPower(0);
             }
+
+
+            //TODO:This is for the testing of a new intake system(delete later)
+            if(gamepad1.a){
+                lancelot.setDirection(Servo.Direction.REVERSE);
+                lancelot.setPosition(0.0);
+            }
+            if(gamepad1.b){
+                lancelot.setDirection(Servo.Direction.FORWARD);
+                lancelot.setPosition(0.3);            }
+            //TODO:This is for the testing of a new intake system(delete later)
+
+
             // Arm Servos
             if (gamepad2.right_bumper) {
                 armServo.setDirection(Servo.Direction.REVERSE);
