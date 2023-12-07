@@ -27,7 +27,7 @@ public class RoBitsDriveCode extends LinearOpMode {
 
     // Variables
     int goalPosition = 0;
-    int goalIncrement = 1;
+    int goalIncrement = 2;
     double x = 0;
 
     @Override
@@ -52,23 +52,23 @@ public class RoBitsDriveCode extends LinearOpMode {
         while(opModeIsActive()) {
             // Forward-Backward Motion
             if (gamepad1.left_stick_y < 0) {
-                setArrayPower(motors, .5);
+                setArrayPower(motors, 2);
                 leftSide.setDirection(DcMotorSimple.Direction.FORWARD);
                 rightSide.setDirection(DcMotorSimple.Direction.REVERSE);
             }
             if (gamepad1.left_stick_y > 0) {
-                setArrayPower(motors, .5);
+                setArrayPower(motors, 2);
                 leftSide.setDirection(DcMotorSimple.Direction.REVERSE);
                 rightSide.setDirection(DcMotorSimple.Direction.FORWARD);
             }
             // Turning Motion
             if (gamepad1.right_stick_x < 0) {
-                setArrayPower(motors, .3);
+                setArrayPower(motors, 1.5);
                 leftSide.setDirection(DcMotorSimple.Direction.REVERSE);
                 rightSide.setDirection(DcMotorSimple.Direction.REVERSE);
             }
             if (gamepad1.right_stick_x > 0) {
-                setArrayPower(motors, .3);
+                setArrayPower(motors, 1.5);
                 leftSide.setDirection(DcMotorSimple.Direction.FORWARD);
                 rightSide.setDirection(DcMotorSimple.Direction.FORWARD);
             }
@@ -150,15 +150,11 @@ public class RoBitsDriveCode extends LinearOpMode {
                 goalPosition = 700;
             }
             if (gamepad2.dpad_down){
-                goalPosition = 0;
+                goalPosition = 100;
             }
-            if (gamepad2.dpad_left){
+            if (gamepad2.dpad_left || gamepad2.dpad_right){
                 goalPosition = 300;
             }
-            if (gamepad2.dpad_right){
-                goalPosition = 300;
-            }
-
         }
     }
 
