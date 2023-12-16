@@ -1,11 +1,18 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.util.Size;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.vision.apriltag.*;
+import org.firstinspires.ftc.vision.VisionPortal;
+
+import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 import java.util.ArrayList;
 
@@ -23,12 +30,19 @@ public class RoBitsDriveCode extends LinearOpMode {
     Servo armServo = null;
     Servo planeServo = null;
 
-    Servo lancelot = null; //TODO:This is for the testing of a new intake system(delete later)
+    Servo lancelotV2 = null;
+
+    // Camera
+    //AprilTagProcessor myAprilTagProcessor;
+    //VisionPortal.Builder myVisionPortalBuilder;
+    //VisionPortal myVisionPortal;
 
     // Variables
     int goalPosition = 0;
     int goalIncrement = 2;
     double x = 0;
+    // Autonomous Movement Copying
+    private MotherAutonomous movements = new MotherAutonomous();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -43,12 +57,22 @@ public class RoBitsDriveCode extends LinearOpMode {
         // Servo Init
         claw = hardwareMap.get(CRServo.class, "claw");
         armServo = hardwareMap.get(Servo.class, "armServo");
+        lancelotV2 = hardwareMap.get(Servo.class, "lancelotV2");
         planeServo = hardwareMap.get(Servo.class, "planeServo");
 
-        lancelot = hardwareMap.get(Servo.class, "lancelot"); //TODO:This is for the testing of a new intake system(delete later)
-
+        // TODO - Try to get camera working?
+        /*
+        // Camera
+        myAprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
+        myVisionPortalBuilder.setCamera(hardwareMap.get(WebcamName.class, "Camera"));
+        myVisionPortalBuilder.addProcessor(myAprilTagProcessor);
+        Camera Customization
+        myVisionPortalBuilder.setCameraResolution(new Size(1280, 720));  // Each resolution, for each camera model, needs calibration values for good pose estimation.
+        myVisionPortalBuilder.setStreamFormat(VisionPortal.StreamFormat.YUY2);  // MJPEG format uses less bandwidth than the default YUY2.
+        myVisionPortalBuilder.enableLiveView(true);      // Enable LiveView (RC preview).         myVisionPortalBuilder.setAutoStopLiveView(false);     // Automatically stop LiveView (RC preview) when all vision processors are disabled.
+         */
+        lancelotV2.setPosition(0);
         waitForStart();
-
         while(opModeIsActive()) {
             // Forward-Backward Motion
             if (gamepad1.left_stick_y < 0) {
@@ -76,17 +100,23 @@ public class RoBitsDriveCode extends LinearOpMode {
                 setArrayPower(motors, 0);
             }
             //Plane Launcher
+
             if (gamepad2.a){
-                planeServo.setDirection(Servo.Direction.REVERSE);
-                planeServo.setPosition(3);
+                planeServo.setDirection(Servo.Direction.FORWARD);
+                planeServo.setPosition(1);
             } else if (gamepad2.b) {
                 planeServo.setPosition(0);
             }
-            telemetry.addData("Plane Servo Position", planeServo.getPosition());
+
+
+
             // Claw
             if (gamepad2.left_trigger > 0) {
                 claw.setDirection(DcMotorSimple.Direction.FORWARD);
                 claw.setPower(100);
+                lancelotV2.setPosition(.55);
+            } else {
+                lancelotV2.setPosition(0);
             }
             if (gamepad2.right_trigger > 0) {
                 claw.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -95,19 +125,6 @@ public class RoBitsDriveCode extends LinearOpMode {
             if(gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0) {
                 claw.setPower(0);
             }
-
-
-            //TODO:This is for the testing of a new intake system(delete later)
-            if(gamepad1.a){
-                lancelot.setDirection(Servo.Direction.REVERSE);
-                lancelot.setPosition(0.0);
-            }
-            if(gamepad1.b){
-                lancelot.setDirection(Servo.Direction.FORWARD);
-                lancelot.setPosition(0.3);            }
-            //TODO:This is for the testing of a new intake system(delete later)
-
-
             // Arm Servos
             if (gamepad2.right_bumper) {
                 armServo.setDirection(Servo.Direction.REVERSE);
@@ -143,6 +160,7 @@ public class RoBitsDriveCode extends LinearOpMode {
                 armMotor.setPower(0.01);
             }
 
+            telemetry.addData("Lancelot V2 Position", lancelotV2.getPosition());
             telemetry.addData("Arm Position", armMotor.getCurrentPosition());
             telemetry.addData("Target Arm Position", goalPosition);
             telemetry.update();

@@ -17,8 +17,11 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-@Autonomous(name = "Drive Motor AprilTag", group = "AprilTag")
-public class AprilTagDemoAutonomous extends LinearOpMode {
+//Todo: This is the autonomous mode where we will test April Tag detection and vision
+
+//TODO: Find out what all this does and edit it so that it can be used to test april tags on the robot
+@Autonomous(name = "VisionTest", group = "AprilTag")
+public class VisionTest extends LinearOpMode{
 
     final double DESIRED_DISTANCE = 12.0;
 
@@ -53,7 +56,7 @@ public class AprilTagDemoAutonomous extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            telemetry.addData("Started", " Autonomous");
+            telemetry.addData("Started", " Vision Test");
             telemetry.update();
             targetFound = false;
             desiredTag = null;
@@ -84,7 +87,7 @@ public class AprilTagDemoAutonomous extends LinearOpMode {
                 telemetry.addData("Auto","Drive %5.2f, Turn %5.2f", drive, turn);
                 leftDrive.setPower(100);
             } else {
-               // telemetry.addData(">","Drive using joysticks to find valid target\n");
+                // telemetry.addData(">","Drive using joysticks to find valid target\n");
             }
         }
     }
@@ -138,4 +141,5 @@ public class AprilTagDemoAutonomous extends LinearOpMode {
                     .build();
         }
     }
+
 }

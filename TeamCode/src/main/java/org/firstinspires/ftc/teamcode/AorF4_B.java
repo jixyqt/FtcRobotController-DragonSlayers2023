@@ -23,6 +23,7 @@ public class AorF4_B extends LinearOpMode {
     // Defining All the Hardware
     private DcMotor armMotor = null;
     private DcMotor left, right;
+    Servo lancelotV2 = null;
     Servo armServo = null;
     CRServo claw = null;
     // Grabbing the Mother Movements.
@@ -43,13 +44,14 @@ public class AorF4_B extends LinearOpMode {
         armServo = hardwareMap.get(Servo.class, "armServo");
         claw = hardwareMap.get(CRServo.class, "claw");
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
+        lancelotV2 = hardwareMap.get(Servo.class, "lancelotV2");
 
         // Resetting motor encoder position to 0
         resetEncoders(motors);
-
+        movements.raiseArm(175, armMotor);
         waitForStart();
         while(opModeIsActive()) {
-            movements.raiseArm(175, armMotor);
+            lancelotV2.setPosition(0);
             double leftCurrPos = left.getCurrentPosition();
             int leftTargetPos = left.getTargetPosition();
             double rightCurrPos = right.getCurrentPosition()

@@ -80,20 +80,20 @@ public class MotherAutonomous {
 
     }
     public void raiseArm(int goalPosition, DcMotor armMotor){
-        armMotor.setTargetPosition(goalPosition);
+        armMotor.setTargetPosition(-goalPosition);
         if(armMotor.getCurrentPosition() > goalPosition) {
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-            armMotor.setPower(0.25);
+            armMotor.setPower(0.5);
         }
         if(armMotor.getCurrentPosition() < goalPosition) {
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-            armMotor.setPower(0.25);
+            armMotor.setPower(0.5);
         }
         if(armMotor.getCurrentPosition() == goalPosition) {
             armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            armMotor.setPower(0.05);
+            armMotor.setPower(0.01);
         }
     }
 }
