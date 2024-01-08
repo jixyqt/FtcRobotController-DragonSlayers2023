@@ -87,17 +87,28 @@ public class RoBitsDriveCode extends LinearOpMode {
             }
             // Turning Motion
             if (gamepad1.right_stick_x < 0) {
-                setArrayPower(motors, 1.5);
+                setArrayPower(motors, .5);
                 leftSide.setDirection(DcMotorSimple.Direction.REVERSE);
                 rightSide.setDirection(DcMotorSimple.Direction.REVERSE);
             }
             if (gamepad1.right_stick_x > 0) {
-                setArrayPower(motors, 1.5);
+                setArrayPower(motors, .5);
                 leftSide.setDirection(DcMotorSimple.Direction.FORWARD);
                 rightSide.setDirection(DcMotorSimple.Direction.FORWARD);
             }
             if (gamepad1.left_stick_y == 0 && gamepad1.right_stick_x == 0) {
                 setArrayPower(motors, 0);
+            }
+            // Gentle Mode
+            if (gamepad1.dpad_up) {
+                setArrayPower(motors, .2);
+                leftSide.setDirection(DcMotorSimple.Direction.FORWARD);
+                rightSide.setDirection(DcMotorSimple.Direction.REVERSE);
+            }
+            if (gamepad1.dpad_down) {
+                setArrayPower(motors, .2);
+                leftSide.setDirection(DcMotorSimple.Direction.REVERSE);
+                rightSide.setDirection(DcMotorSimple.Direction.FORWARD);
             }
             //Plane Launcher
 
@@ -115,7 +126,10 @@ public class RoBitsDriveCode extends LinearOpMode {
                 claw.setDirection(DcMotorSimple.Direction.FORWARD);
                 claw.setPower(100);
                 lancelotV2.setPosition(.55);
-            } else {
+            } else if (gamepad2.b) {
+                lancelotV2.setPosition(.9);
+            }
+            else {
                 lancelotV2.setPosition(0);
             }
             if (gamepad2.right_trigger > 0) {

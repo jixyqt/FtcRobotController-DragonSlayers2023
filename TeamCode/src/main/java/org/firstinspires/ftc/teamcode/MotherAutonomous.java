@@ -56,10 +56,10 @@ public class MotherAutonomous {
         left = motors.get(0);
         right = motors.get(1);
         if(degreeGoal == 90) {
-            left.setTargetPosition(610);
-            left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            right.setTargetPosition(610);
-            right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            for (DcMotor motor : motors) {
+                motor.setTargetPosition(590);
+                motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
         } else {
             y = 1440/((double)(degreeGoal/33.5));
             for (DcMotor motor : motors) {
