@@ -27,7 +27,6 @@ public class RoBitsDriveCode extends LinearOpMode {
     DcMotor armMotor = null;
     // Servo Define
     CRServo claw = null;
-    Servo armServo = null;
     Servo planeServo = null;
 
     Servo lancelotV2 = null;
@@ -56,7 +55,6 @@ public class RoBitsDriveCode extends LinearOpMode {
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // Servo Init
         claw = hardwareMap.get(CRServo.class, "claw");
-        armServo = hardwareMap.get(Servo.class, "armServo");
         lancelotV2 = hardwareMap.get(Servo.class, "lancelotV2");
         planeServo = hardwareMap.get(Servo.class, "planeServo");
 
@@ -138,15 +136,6 @@ public class RoBitsDriveCode extends LinearOpMode {
             }
             if(gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0) {
                 claw.setPower(0);
-            }
-            // Arm Servos
-            if (gamepad2.right_bumper) {
-                armServo.setDirection(Servo.Direction.REVERSE);
-                armServo.setPosition(.1);
-            }
-            if (gamepad2.left_bumper) {
-                armServo.setDirection(Servo.Direction.FORWARD);
-                armServo.setPosition(0);
             }
             // Arm Motor
             if (gamepad2.left_stick_y < 0) {

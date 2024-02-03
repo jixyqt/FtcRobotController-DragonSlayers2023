@@ -50,10 +50,9 @@ public class F2_A extends LinearOpMode {
 
         // Resetting motor encoder position to 0
         resetEncoders(motors);
-        movements.raiseArm(175, armMotor);
         waitForStart();
         while(opModeIsActive()) {
-            lancelotV2.setPosition(0);;
+            movements.raiseArm(175, armMotor);
             double leftCurrPos = left.getCurrentPosition();
             int leftTargetPos = left.getTargetPosition();
             double rightCurrPos = right.getCurrentPosition()
@@ -62,6 +61,7 @@ public class F2_A extends LinearOpMode {
             complete = within(leftCurrPos, leftTargetPos) && within(rightCurrPos, rightTargetPos);
             // Logic for figuring out where we are in sequence
             if(moving && complete && !move1Done) {
+                lancelotV2.setPosition(0);
                 moving = false;
                 move1Done = true;
                 resetEncoders(motors);

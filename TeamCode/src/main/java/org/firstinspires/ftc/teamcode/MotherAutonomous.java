@@ -83,12 +83,12 @@ public class MotherAutonomous {
         armMotor.setTargetPosition(-goalPosition);
         if(armMotor.getCurrentPosition() > goalPosition) {
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+            armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
             armMotor.setPower(0.5);
         }
         if(armMotor.getCurrentPosition() < goalPosition) {
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+            armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
             armMotor.setPower(0.5);
         }
         if(armMotor.getCurrentPosition() == goalPosition) {
