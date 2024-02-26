@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ public class MotherAutonomous {
         }
     }
 
-    // For whatever reason, 10 inches is around 1 square according to this math.
     public void move(double inchGoal, ArrayList<DcMotor> motors, boolean direction, DcMotor left, DcMotor right) {
         double y;
         // 3 is the diameter of the wheel, and multiplying by pi gets us the circumference.

@@ -43,6 +43,10 @@ public class RoBitsDriveCode extends LinearOpMode {
     // Autonomous Movement Copying
     private MotherAutonomous movements = new MotherAutonomous();
 
+    public boolean within(double x, int y){
+        return x >= y-10;
+    }
+
     @Override
     public void runOpMode() throws InterruptedException {
         ArrayList<DcMotor> motors = new ArrayList<>();
